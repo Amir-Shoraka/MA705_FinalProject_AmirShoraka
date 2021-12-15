@@ -279,7 +279,7 @@ def update_emisBar(state_slctd):
         x="YearStr",
         y="CO2mmt",
         color="Source",
-        title= state_slctd + ' CO2 Emissions by Source' )
+        title= state_slctd + ' CO2 Emissions by Source'  )
     
     fig.update_layout(
         font_color="black",
