@@ -7,34 +7,11 @@ Created on Fri Dec  3 19:00:00 2021
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import geopandas
-import matplotlib.colors as colors
-from collections import Counter
-import datetime
-import time
 import dash
-from dash import dcc
-from dash import html
-from dash.dependencies import Input, Output
-import plotly.express as px
-import pandas as pd
 from dash import Dash, dcc, html, Input, Output, dash_table
+import plotly.express as px
 
 stylesheet = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-### pandas dataframe to html table
-def generate_table(dataframe, max_rows=10):
-    return html.Table([
-        html.Thead(
-            html.Tr([html.Th(col) for col in dataframe.columns])
-        ),
-        html.Tbody([
-            html.Tr([
-                html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
-            ]) for i in range(min(len(dataframe), max_rows))
-        ])
-    ])
 
 app = dash.Dash(__name__, external_stylesheets=stylesheet)
 
@@ -70,10 +47,10 @@ PAGE_SIZE = 5
 stateNames = sorted(set(df1.State))
 
 style_dict = dict(width='50%',
-                  # border='1.5px black solid',
                   height='25px',
                   textAlign='center',
                   fontSize=20)
+
 # =============================================================================
 # APP Layout
 # =============================================================================
@@ -110,7 +87,7 @@ app.layout = html.Div([
         {"name": i, "id": i} for i in ['State', 'Source', 'Year', 'Power Generation (million MWh)',
                                        'Percent of US Total', 'CO2 Emissions (million MT)','Percent of US CO2']
         ],
-        style_cell={                # ensure adequate header width when text is shorter than cell's text
+        style_cell={                
             'maxWidth': 50
         },
         style_table = {'width': "100%"},
@@ -198,6 +175,7 @@ def update_genMap(year_slctd,source_slctd):
     )
     return fig
 
+# Table update
 @app.callback(
     Output(component_id="table_div", component_property="data"),
     [Input(component_id='slct_year', component_property='value'),
@@ -236,7 +214,7 @@ def update_table(year_slctd,source_slctd):
 
 
 
-
+# Generation bar chart update
 @app.callback(
     Output(component_id='gen_bar', component_property='figure'),
     Input(component_id='slct_state', component_property='value')
@@ -277,6 +255,7 @@ def update_genBar(state_slctd):
     )
     return fig
 
+# Emissions bar chart update
 @app.callback(
     Output(component_id='emis_bar', component_property='figure'),
     Input(component_id='slct_state', component_property='value')
