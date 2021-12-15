@@ -76,8 +76,8 @@ app.layout = html.Div([
                  value='Total',
                  style={'width': "33%"}
                  ),
-    html.H6("The map below shows the power generation in tera watt hours (TWh) in US States for the selected Year and the selected Energy Source.", style={'width': "100%",'text-align': 'left'}),
-    html.H6("Hover over the map for State specific information.", style={'width': "100%",'text-align': 'left'}),
+    html.H5("The map below shows the power generation in tera watt hours (TWh) in US States for the selected Year and the selected Energy Source.", style={'width': "100%",'text-align': 'left'}),
+    html.H5("Hover over the map for State specific information.", style={'width': "100%",'text-align': 'left'}),
     dcc.Graph(id='gen_map', figure={}, 
               style = {'width': "100%"}),
     html.H6("Table below shows Energy and Emissions information for the top 10 States in the selected year and the selected energy source.", style={'width': "100%",'text-align': 'left'}),
@@ -109,7 +109,7 @@ app.layout = html.Div([
         page_size=PAGE_SIZE
    ),
    html.Br(),
-   html.H6("Select a State", style={'width': "100%",'text-align': 'left'}),
+   html.H5("Select a State", style={'width': "100%",'text-align': 'left'}),
     
    dcc.Dropdown(id="slct_state",
                  options = [dict([('label', state), ('value', state)]) for state in stateNames],
@@ -117,8 +117,8 @@ app.layout = html.Div([
                  value= 'US-TOTAL',
                  style={'width': "50%",'x' : 0.5,'xanchor':'center'}
                  ),
-   html.H6("The bar charts below show the energy production and CO2 emissions between 1990 and 2020 for a selected State or US-Total.", style={'width': "100%",'text-align': 'left'}),
-   html.H6("Interact with each visualization to explore the environmental impact of different energy sources or to obtain insight on how US energy production resources are changing.", style={'width': "100%",'text-align': 'left'}),
+   html.H5("The bar charts below show the energy production and CO2 emissions between 1990 and 2020 for a selected State or US-Total.", style={'width': "100%",'text-align': 'left'}),
+   html.H5("Interact with each visualization to explore the environmental impact of different energy sources or to obtain insight on how US energy production resources are changing.", style={'width': "100%",'text-align': 'left'}),
    
    dcc.Graph(id='gen_bar', 
              style = {'width': "50%",'float':'left'}), 
@@ -238,7 +238,7 @@ def update_genBar(state_slctd):
         x="YearStr",
         y="GenTWh",
         color="Source",
-        title=  state_slctd+ ' Energy Production by Source in: ')
+        title=  state_slctd+ ' Energy Production by Source')
     
     fig.update_layout(
         font_color="black",
@@ -279,7 +279,7 @@ def update_emisBar(state_slctd):
         x="YearStr",
         y="CO2mmt",
         color="Source",
-        title= state_slctd + ' CO2 Emissions by Source in: ' )
+        title= state_slctd + ' CO2 Emissions by Source' )
     
     fig.update_layout(
         font_color="black",
